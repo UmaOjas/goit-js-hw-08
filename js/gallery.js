@@ -70,7 +70,7 @@ const gallery = document.querySelector('.gallery');
 
 function imageTemplate( { preview, original, description} ) {
     return `<li class="gallery-item">
-    <a class="gallery-link" href="large-image.jpg">
+    <a class="gallery-link" href="${original}">
       <img
         class="gallery-image"
         src="${preview}"
@@ -97,14 +97,17 @@ function onGalleryClick(e) {
     e.preventDefault();
     if (e.target.nodeName !== 'IMG') return;
     const originalImage = e.target.dataset.source;
-    showModal(originalImage);
+    console.log(originalImage)
+    const imageOnClick = images.find(img => img.original === originalImage);
+    console.log(imageOnClick)
+    showModal(imageOnClick);
 };
 
-function showModal(originalImage) {
+function showModal(imageOnClick) {
     const instance = basicLightbox.create(`
     <img
-    src="${originalImage}"
-    alt="${images.description}"
+    src="${imageOnClick.original}"
+    alt="${imageOnClick.description}"
     width="1112" 
     height="640"
   />
